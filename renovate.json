@@ -1,6 +1,27 @@
 {
   "extends": [
-    "config:base"
+    "config:recommended",
+    "config:js-lib",
+    ":automergeBranch",
+    ":automergePatch",
+    ":automergeLinters",
+    ":automergeTesters",
+    ":automergeTypes",
+    ":maintainLockFilesWeekly",
+    ":semanticCommitsDisabled"
   ],
-  "rangeStrategy": "replace"
+  "labels": ["dependencies"],
+  "packageRules": [
+    {
+      "matchCurrentVersion": ">= 1.0.0",
+      "matchUpdateTypes": ["minor"],
+      "automerge": true
+    },
+    {
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor"],
+      "automerge": true
+    }
+  ],
+  "postUpdateOptions": ["pnpmDedupe"]
 }
